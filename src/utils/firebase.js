@@ -21,7 +21,6 @@ export const getPlayer1Name = async (roomNumber)=>{
 
 
 export const getResult = async (roomNumber)=>{
-    
      return await database()
         .ref(`/${roomNumber}/record`)
         .once('value')
@@ -29,7 +28,6 @@ export const getResult = async (roomNumber)=>{
 }
 
 export const listerningTask = async (roomNumber)=>{
-    
     return await database()
        .ref(`/${roomNumber}/task`)
        .once('value')
@@ -37,7 +35,6 @@ export const listerningTask = async (roomNumber)=>{
 }
 
 export const setyourtask = async (roomNumber,task)=>{
-    
     return await database()
        .ref(`/${roomNumber}`)
        .update({
@@ -47,14 +44,12 @@ export const setyourtask = async (roomNumber,task)=>{
 }
 
 export const clearTemp = async (roomNumber)=>{
-    
      await database()
        .ref(`/${roomNumber}/player1`)
        .update({
            temp:"",
            status:"n"
        })
-
     await database()
        .ref(`/${roomNumber}/player2`)
        .update({
@@ -63,9 +58,6 @@ export const clearTemp = async (roomNumber)=>{
        })
 
 }
-
-
-
 
 export const listenRoom = async (roomNumber)=>{
     let temp = roomNumber.toString();

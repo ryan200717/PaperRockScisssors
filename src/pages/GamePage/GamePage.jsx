@@ -17,7 +17,6 @@ const GamePage = (props) => {
         
     }
     
-
     const confirmJoinRoom=async(room)=>{
         let response;
         let player1Name;
@@ -41,7 +40,6 @@ const GamePage = (props) => {
                 props.navigation.navigate({routeName: "Game", params: { name: props.navigation.state.params.name, opponentName:player1Name, roomNumber:room, player:'player2'}})
             }
             catch(error){}
-            
         }
     }
 
@@ -62,11 +60,7 @@ const GamePage = (props) => {
         }
         catch(error){console.log(error)}
         setOpenRoomLoading(false)
-        
-        
-       
     }
-
 
     useEffect(()=>{
         let listerner
@@ -79,8 +73,7 @@ const GamePage = (props) => {
                                     setStatus(null)
                                     setRoomNumber(null)
                                     props.navigation.navigate({routeName: "Game", params: { name: props.navigation.state.params.name, opponentName:snapshot.val() , roomNumber:roomNumber, player:'player1'}})}
-            });
-            
+                            }); 
             }
             catch(error){}
         }
@@ -89,8 +82,6 @@ const GamePage = (props) => {
             database()
             .ref(`/${roomNumber}/player2/name`)
             .off('value',listerner)
-
-            //setStatus(null)
         }
 
     },[status,roomNumber])

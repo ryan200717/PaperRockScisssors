@@ -18,6 +18,7 @@ const Lobby = (props) => {
                                 onChangeText={text => setRoomNumber(text)}/>
                             <IconButton  icon="arrow-right-bold-circle" color='grey'size={50} style={styles.Button}  onPress={()=>props.confirmJoinRoom(roomNumber)}/>
                         </View>)
+
             case "openRoom":
                 return(<View style={{flex:3,justifyContent:'center', alignItems:'center' ,flexDirection:'column'}}>
                             <View style={{flex:0.8,flexDirection:'column',justifyContent:'center'}}>
@@ -25,6 +26,7 @@ const Lobby = (props) => {
                                 <Text style={{textAlign:'center'}}>Waiting others joins</Text>
                             </View>
                         </View>)
+                        
             default : 
                 return(<View style={{flex:3,justifyContent:'center', alignItems:'center' ,flexDirection:'column'}}>
                             <Button icon="city-variant-outline" mode="text" labelStyle={{fontSize:40}}  style={{height:'50%'}} onPress={()=>props.openRoom()}>

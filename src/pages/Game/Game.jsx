@@ -10,13 +10,9 @@ import * as result from '../../utils/result'
 import Card from '../../components/Card/Card'
 import { useDispatch } from 'react-redux';
 import * as resultStoring from '../../store/actions/storeResult'
-import { useSelector } from 'react-redux';
-import { nativeViewProps } from 'react-native-gesture-handler/lib/typescript/handlers/NativeViewGestureHandler';
-{/* <Text>{props.navigation.state.params.name}</Text>
-            <Text>{props.navigation.state.params.opponentName}</Text> */}
+
 const Game = (props) => {
     const dispatch=useDispatch();
-    
     const[task,setTask]=useState(null)
     const[tempText,setTempText]=useState(null)
     const[winner,setWinner]=useState(null)
@@ -29,10 +25,8 @@ const Game = (props) => {
     const[choose,setChoose]=useState(null)
     const[battleStatus,setBattleStatus]=useState('question')
     const[enableConfirm,setEnableConfirm]=useState(null)
-    
     const [disableConfirm,setDisableConfirm] = useState(false);
     const [opponentDecisionDisplay,setOpponentDecisionDisplay] = useState(null);
-
     const opponentPlayer = props.navigation.state.params.player =='player1' ? 'player2':'player1'
     
     const SubmitTask=async()=>{
@@ -78,12 +72,9 @@ const Game = (props) => {
             setWinner(null);
             setLoser(null)
         }
-            catch(error){}
+        catch(error){}
     }
     
-
-
-
     const choiseFunction=(choise)=>{
         setChoose(choise)
     }
@@ -98,9 +89,9 @@ const Game = (props) => {
         
         setOpponentDecisionDisplay(temp);
         FinalResult=result.outputResult(choose,temp);
-        if(FinalResult==choose)
-            {setOpponentLose(true)
-            }
+        if(FinalResult==choose){
+            setOpponentLose(true)
+        }
             
         else if (FinalResult==temp)
             {setLose(true)}
@@ -109,7 +100,6 @@ const Game = (props) => {
 
     }
 
-
     const updateYourChoice= async ()=>{
         try{
             await firebase.decideTemp(props.navigation.state.params.roomNumber,choose,props.navigation.state.params.player,"y")
@@ -117,7 +107,6 @@ const Game = (props) => {
             setDisableConfirm(true)
         }
         catch(error){}
-
     }
 
     
@@ -132,9 +121,7 @@ const Game = (props) => {
         let listernTask;
             onValueChange = database()
            .ref(`/${props.navigation.state.params.roomNumber}/${props.navigation.state.params.player =='player1' ? 'player2':'player1'}/status`)
-           .on('value',snapshot=>{
-               console.log(snapshot.val())
-               
+           .on('value',snapshot=>{ 
                if(snapshot.val()=='y'){
                     setOpponentStatus(true)
                     if(status==true){
@@ -147,8 +134,6 @@ const Game = (props) => {
            listernTask = database()
            .ref(`/${props.navigation.state.params.roomNumber}/task`)
            .on('value',snapshot=>{
-               console.log(snapshot.val())
-               
                if(snapshot.val()!=''){
                     setTask(snapshot.val())
                     setEnableConfirm(true)
@@ -165,16 +150,6 @@ const Game = (props) => {
                      
                      dispatch(resultStoring.deleteResultRedux())
                     }
-           
-
-        // return ()=>
-        // {
-        //     if(timer ===10){
-        //         database()
-        //         .ref(`/${props.navigation.state.params.roomNumber}/status`)
-        //         .off('value',onValueChange)
-        //         console.log('unmount')}
-        //     }
 
     },[status])
 
@@ -182,12 +157,11 @@ const Game = (props) => {
 
     return ( 
         <View style={{flex:1}}>
-            {task?null:<View style={{flex:2}}>
-                <CurvedHeader customStyles={styles.svgCurve} />
-                </View>
+            {task ? null : <View style={{flex:2}}>
+                                <CurvedHeader customStyles={styles.svgCurve} />
+                           </View>
             }
             <View style={{flex:1,justifyContent:'center',flexDirection:'row'}}>
-                
                 <TextInput  
                     style={styles.Input}
                     mode='outlined'
@@ -195,11 +169,10 @@ const Game = (props) => {
                     value={tempText}
                     onChangeText={text => setTempText(text)}/>
                 <IconButton  icon="arrow-right-bold-circle" color='grey'size={65} style={styles.Button} onPress={SubmitTask}/>
-                
             </View>
             
             <View style={{flex:1.4,marginTop:5}}>
-                {task ? <Card  battleStatus={battleStatus} yourName={props.navigation.state.params.name} task={task} win={winner} lose={loser} day={new Date()}/>:null }
+                {task ? <Card  battleStatus={battleStatus} yourName={props.navigation.state.params.name} task={task} win={winner} lose={loser} day={new Date()}/> : null }
             </View>
         
             <View style={{flex:2}}>
@@ -221,7 +194,6 @@ const Game = (props) => {
                     roomNumber={props.navigation.state.params.roomNumber}
                     settingBattleStatus={settingBattleStatus}
                     setResult={setResult}/>
-
             </View>
 
             <View  style={{flex:1}}>
@@ -232,7 +204,6 @@ const Game = (props) => {
                 <Button icon="earth" mode="text" labelStyle={{fontSize:40}}  disabled={disableConfirm||(!enableConfirm)} style={{height:'50%'}} onPress={updateYourChoice}>Confirm</Button>
                 <Button icon="earth" mode="text" labelStyle={{fontSize:40}}  style={{height:'50%'}} onPress={NavToRecord}>Record</Button>
             </View>
-
         </View> );
 }
 

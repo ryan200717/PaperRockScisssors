@@ -2,14 +2,12 @@ import React, { Component, useState } from 'react';
 import { View,Text,StyleSheet,Image,Dimensions, KeyboardAvoidingView } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { IconButton } from 'react-native-paper';
-import * as firebase from '../../utils/firebase';
 import CurvedHeader from '../../UI/CurvedHeader'
 
 const HomePage = (props) => {
     const [name,setName]=useState()
     
     const navPage = async ()=>{  
-           // props.navigation.navigate('GamePage')
             props.navigation.navigate({routeName: "GamePage", params: { name: name}})
     }
 

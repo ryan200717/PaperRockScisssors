@@ -12,9 +12,6 @@ const FunctionNavigatior = createStackNavigator({
     GamePage:GamePage,
     Game:Game,
     Result:Result
-
-    
-
 })
 
 export default createAppContainer(FunctionNavigatior)

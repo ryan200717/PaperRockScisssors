@@ -23,12 +23,11 @@ const Result = (props) => {
             
             return temp
         }
-       
-       
-         response = getData()
+        response = getData()
         console.log(response)
         //dispatch(resultStoring.storeResultRedux())
     },[])
+
     return ( 
         <View style={{flex:1}}>
             <FlatList
@@ -45,7 +44,6 @@ const Result = (props) => {
                     
                 )}
             />
-            
         </View>
      );
 }

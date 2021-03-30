@@ -1,12 +1,9 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, StyleSheet ,SafeAreaView,Image,Text} from 'react-native';
 import {Button,IconButton} from 'react-native-paper'
-import { useDispatch, useSelector } from 'react-redux';
-import * as resultStoring from '../../store/actions/storeResult'
 import * as firebase from '../../utils/firebase';
 
 const BattleDisplay = (props) => {
-    const dispatch = useDispatch();
     const [timer,setTimer] = useState(5);
     const [show,setShow] = useState(false);
     const [isActive, setIsActive] = useState(false);
@@ -21,14 +18,11 @@ const BattleDisplay = (props) => {
         try {
             setId(setInterval(() => {
                 changeTimer()
-            }, 1000)
-            
-            )
+            }, 1000))
           }
           catch(error){
             console.log(error)       
           }
-         
     }
     
     const display=()=>{
@@ -63,8 +57,10 @@ const BattleDisplay = (props) => {
              clearInterval(id)
              setIsActive(false)
              setTimer(5)
+
              if(props.player=='player1' && (props.lose||props.opponentLose))
                     firebase.storeResult(props.roomNumber,props.lose,props.yourName,props.opponentName,props.task)
+
              if(props.lose){
                 alert ("you lose")
                 props.settingBattleStatus();
@@ -77,12 +73,13 @@ const BattleDisplay = (props) => {
              }
             else
                 alert('play again')
+
             setShow(true)
+
          }},[timer,props.startTimer])
 
     return ( 
     <SafeAreaView style={{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-
         <View style={{flex:1}}>
             {display()}
             <Text style={styles.Text}>Yours</Text>
@@ -91,7 +88,6 @@ const BattleDisplay = (props) => {
             </View>
         </View>
         
-
         <View style={{flex:1}}>
             <Image style={styles.Image} resizeMode='contain'  source={require('../../../assests/vs.png')}/>
                 {isActive?<Text style={{textAlign:'center'}}>{timer}</Text>:<Button mode="text" labelStyle={{fontSize:10}}  style={{height:'50%'}} onPress={()=>{props.nextGame();setShow(false)}}> Next Game</Button>}
@@ -104,7 +100,6 @@ const BattleDisplay = (props) => {
                 {props.opponentStatus?<IconButton  icon="check-all" color='grey'size={15}/>:null}
             </View>
         </View>
-
     </SafeAreaView>);
 }
 
@@ -122,7 +117,6 @@ const styles = StyleSheet.create({
     },
     Text:{
         textAlign:'center',
-        
     }
 });
  
